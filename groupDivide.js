@@ -13,6 +13,9 @@ const rl = readline.createInterface({
  * @throws {Error} If the number of people is odd.
  */
 function divideIntoGroups(people) {
+    //Add a console.log statement  to indicate  the function  has been called 
+    console.log("Dividing people into  groups...");
+
     if (people.length % 2 !== 0) {
         throw new Error("Number of people must be even.");
     }
@@ -46,6 +49,10 @@ function shuffleArray(array) {
 
 // Prompt user for input
 rl.question('Enter names of people (separated by commas): ', (input) => {
+
+    // Add a console.log statement to indicate user input is being processed
+    console.log("Processing user input...");
+
     const people = input.split(',').map(name => name.trim());
     try {
         const groups = divideIntoGroups(people);
