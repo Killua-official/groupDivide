@@ -1,9 +1,22 @@
+const readline = require('readline');
+
+// Create interface for reading user input
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 /**
  * Divides an array of people into groups of two.
  * @param {Array} people An array of people to be divided into groups.
  * @returns {Array} An array of arrays representing groups of two people each.
+ * @throws {Error} If the number of people is odd.
  */
 function divideIntoGroups(people) {
+    if (people.length % 2 !== 0) {
+        throw new Error("Number of people must be even.");
+    }
+
     // Shuffle the array to randomize the grouping
     const shuffledPeople = shuffleArray(people);
 
@@ -31,7 +44,15 @@ function shuffleArray(array) {
     return array;
 }
 
-// Example usage:
-const people = ["Tomiris", "Aruzhan", "Daniyar", "Aida", "Dilnaz", "Margulan"];
-const groups = divideIntoGroups(people);
-console.log("Groups:", groups);
+// Prompt user for input
+rl.question('Enter names of people (separated by commas): ', (input) => {
+    const people = input.split(',').map(name => name.trim());
+    try {
+        const groups = divideIntoGroups(people);
+        console.log("Groups:", groups);
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
+    rl.close();
+});
+
